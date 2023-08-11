@@ -16,11 +16,17 @@ class Tree {
 
 function buildTree(array) {
   //takes array, turns it into balanced binary tree of node objects
-  //sort and remove duplicates
+  //sort and remove duplicates(
+  //Base case
+  if (start > end) {
+    return null;
+  }
   let start = 0;
   let end = array.length;
   let mid = Math.floor((start + end) / 2);
+  //Set middle element to root
   let root = new Node(array[mid]);
+  //Recursively construct left/right subtree, make it left/right child of root
   root.left = buildTree(array);
   root.right = buildTree(array);
   return root;
