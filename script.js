@@ -20,13 +20,20 @@ function buildTree(array) {
   let start = 0;
   let end = array.length;
   let mid = Math.floor((start + end) / 2);
-  let root = new Node(arr[mid]);
+  let root = new Node(array[mid]);
   root.left = buildTree(array);
   root.right = buildTree(array);
   return root;
 }
 function sortArray(array) {
-  //sort array
+  let sortedArray = array.sort(function (a, b) {
+    return a - b;
+  });
+  for (let i = 0; i < sortedArray.length; i++) {
+    if (sortedArray[i] === sortedArray[i + 1]) {
+      sortedArray.splice(i, 1);
+    }
+  }
   return sortedArray;
 }
 
