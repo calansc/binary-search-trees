@@ -17,8 +17,13 @@ class Tree {
 function buildTree(array) {
   //takes array, turns it into balanced binary tree of node objects
   //sort and remove duplicates
+  let start = 0;
+  let end = array.length;
   let mid = Math.floor((start + end) / 2);
   let root = new Node(arr[mid]);
+  root.left = buildTree(array);
+  root.right = buildTree(array);
+  return root;
 }
 function sortArray(array) {
   //sort array
