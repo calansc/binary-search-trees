@@ -41,17 +41,28 @@ class Tree {
   }
   insert(newNodeValue) {
     let node = new Node(newNodeValue);
+    // if BST is empty, return new root node
+    if (root == null) {
+      root = node;
+      return;
+    }
+    // Recur down tree
+    let prev = null;
     let step = this.root;
-    if (newNodeValue === step.value) {
-      console.log(newNodeValue + " exists in tree already!");
-      return null;
-    }
-    if (step.left === null && step.right === null) {
-      console.log("found leaf");
-    }
-    if (newNodeValue < step.value) {
-      step = step.left;
-      return this.insert(newNodeValue);
+    while (temp != null) {
+      if (newNodeValue === step.value) {
+        console.log(newNodeValue + " exists in tree already!");
+        return null;
+      }
+      if (newNodeValue < step.value) {
+        prev = step;
+        step = step.left;
+      } else if (newNodeValue > step.value) {
+        prev = temp;
+        step = step.right;
+      }
+      if (prev.val > key) prev.left = node;
+      else prev.right = node;
     }
   }
   delete() {}
