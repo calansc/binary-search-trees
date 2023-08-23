@@ -7,13 +7,12 @@ class Node {
 }
 
 class Tree {
-  //accepts array when initialized
+  //accepts unsorted array when initialized
   constructor(array) {
     this.root = this.buildTree(array);
   }
   buildTree(array) {
-    //takes a sorted array, turns it into balanced binary tree of node objects
-    //sort and remove duplicates(
+    //sorts array, removes dupes, returns root node of balanced search tree
     let sorted = this.sortArray(array);
     if (sorted.length === 0) return null;
     let start = 0;
@@ -22,12 +21,9 @@ class Tree {
     if (start > end) {
       return null;
     }
-    // let start = 0;
-    // let end = array.length;
     let mid = Math.floor((start + end) / 2);
-    //Set middle element to root
     let root = new Node(array[mid]);
-    //Recursively construct left/right subtree, make it left/right child of root
+    //Recursively construct left/right subtree
     root.left = this.buildTree(sorted.slice(0, mid));
     root.right = this.buildTree(sorted.slice(mid + 1));
     return root;
@@ -43,7 +39,21 @@ class Tree {
     }
     return sortedArray;
   }
-  insert() {}
+  insert(newNodeValue) {
+    let node = new Node(newNodeValue);
+    let step = this.root;
+    if (newNodeValue === step.value) {
+      console.log(newNodeValue + " exists in tree already!");
+      return null;
+    }
+    if (step.left === null && step.right === null) {
+      console.log("found leaf");
+    }
+    if (newNodeValue < step.value) {
+      step = step.left;
+      return this.insert(newNodeValue);
+    }
+  }
   delete() {}
   find() {}
   levelOrder() {}
