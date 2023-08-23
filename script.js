@@ -42,14 +42,14 @@ class Tree {
   insert(newNodeValue) {
     let node = new Node(newNodeValue);
     // if BST is empty, return new root node
-    if (root == null) {
-      root = node;
+    if (this.root == null) {
+      this.root = node;
       return;
     }
     // Recur down tree
     let prev = null;
     let step = this.root;
-    while (temp != null) {
+    while (step != null) {
       if (newNodeValue === step.value) {
         console.log(newNodeValue + " exists in tree already!");
         return null;
@@ -58,12 +58,13 @@ class Tree {
         prev = step;
         step = step.left;
       } else if (newNodeValue > step.value) {
-        prev = temp;
+        prev = step;
         step = step.right;
       }
-      if (prev.val > key) prev.left = node;
-      else prev.right = node;
     }
+    if (prev.value > newNodeValue) prev.left = node;
+    else prev.right = node;
+    console.log("test");
   }
   delete() {}
   find() {}
