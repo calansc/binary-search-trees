@@ -69,26 +69,26 @@ class Tree {
     if (this.root === null) {
       return this.root;
     }
-    let prev = null;
-    let step = this.root;
+    // let prev = null;
+    // let step = this.root;
     // Recursive calls for ancestors of node to be deleted
-    if (nodeValue < step.value) {
-      prev = step;
-      step = step.left;
-      this.delete(nodeValue);
+    if (nodeValue < this.root.value) {
+      // prev = step;
+      // step = step.left;
+      this.root.left = this.delete(nodeValue);
       return this.root;
-    } else if (nodeValue > step.value) {
-      prev = step;
-      step = step.right;
-      this.delete(nodeValue);
+    } else if (nodeValue > this.root.value) {
+      // prev = step;
+      // step = step.right;
+      this.root.right = this.delete(nodeValue);
       return this.root;
     }
     // Reach here when root is node to delete
-    if (step.left === null) {
+    if (this.root.left === null) {
       let temp = this.root.right;
       delete this.root;
       return temp;
-    } else if (step.right === null) {
+    } else if (this.root.right === null) {
       let temp = this.root.left;
       delete this.root;
       return temp;
@@ -96,8 +96,8 @@ class Tree {
     // If both children exist
     else {
       let succParent = this.root;
-      let succ = this.root.right;
       // Find successor
+      let succ = this.root.right;
       while (succ.left !== null) {
         succParent = succ;
         succ = succ.left;
@@ -111,7 +111,9 @@ class Tree {
       // Copy successor data to root
       this.root.value = succ.value;
       // Delete successor and return root
-      delete succ.value;
+      console.log(succ);
+      delete succ;
+      console.log(succ);
       return this.root;
     }
   }
@@ -149,5 +151,5 @@ bst.insert(6);
 prettyPrint(bst.root);
 bst.delete(8);
 prettyPrint(bst.root);
-bst.delete(4);
+bst.delete(1);
 prettyPrint(bst.root);
