@@ -8,40 +8,55 @@ class Node {
 
 class Tree {
   //accepts array when initialized
-  constructor() {}
-  root() {
-    //root attribute uses return value of buildTree
+  constructor(array) {
+    this.root = this.buildTree(array);
   }
+  buildTree(array) {
+    //takes a sorted array, turns it into balanced binary tree of node objects
+    //sort and remove duplicates(
+    let sorted = this.sortArray(array);
+    if (sorted.length === 0) return null;
+    let start = 0;
+    let end = sorted.length;
+    //Base case
+    if (start > end) {
+      return null;
+    }
+    // let start = 0;
+    // let end = array.length;
+    let mid = Math.floor((start + end) / 2);
+    //Set middle element to root
+    let root = new Node(array[mid]);
+    //Recursively construct left/right subtree, make it left/right child of root
+    root.left = this.buildTree(sorted.slice(0, mid));
+    root.right = this.buildTree(sorted.slice(mid + 1));
+    return root;
+  }
+  sortArray(array) {
+    let sortedArray = array.sort(function (a, b) {
+      return a - b;
+    });
+    for (let i = 0; i < sortedArray.length; i++) {
+      if (sortedArray[i] === sortedArray[i + 1]) {
+        sortedArray.splice(i, 1);
+      }
+    }
+    return sortedArray;
+  }
+  insert() {}
+  delete() {}
+  find() {}
+  levelOrder() {}
+  inorder() {}
+  preorder() {}
+  postorder() {}
+  height() {}
+  depth() {}
+  isBalanced() {}
+  rebalance() {}
 }
 
-function buildTree(array) {
-  //takes array, turns it into balanced binary tree of node objects
-  //sort and remove duplicates(
-  //Base case
-  if (start > end) {
-    return null;
-  }
-  let start = 0;
-  let end = array.length;
-  let mid = Math.floor((start + end) / 2);
-  //Set middle element to root
-  let root = new Node(array[mid]);
-  //Recursively construct left/right subtree, make it left/right child of root
-  root.left = buildTree(array);
-  root.right = buildTree(array);
-  return root;
-}
-function sortArray(array) {
-  let sortedArray = array.sort(function (a, b) {
-    return a - b;
-  });
-  for (let i = 0; i < sortedArray.length; i++) {
-    if (sortedArray[i] === sortedArray[i + 1]) {
-      sortedArray.splice(i, 1);
-    }
-  }
-  return sortedArray;
-}
+let root = null;
 
 //console.log's tree in a structured format
 const prettyPrint = (node, prefix = "", isLeft = true) => {
