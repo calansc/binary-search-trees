@@ -64,9 +64,25 @@ class Tree {
     }
     if (prev.value > newNodeValue) prev.left = node;
     else prev.right = node;
-    console.log("test");
   }
-  delete() {}
+  delete(nodeValue) {
+    if (this.root === null) {
+      return root;
+    }
+    let prev = null;
+    let step = this.root;
+    if (nodeValue < step.value) {
+      prev = step;
+      step = step.left;
+      this.delete(nodeValue);
+      return this.root;
+    } else if (nodeValue > step.value) {
+      prev = step;
+      step = step.right;
+      this.delete(nodeValue);
+      return this.root;
+    }
+  }
   find() {}
   levelOrder() {}
   inorder() {}
