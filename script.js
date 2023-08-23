@@ -67,10 +67,11 @@ class Tree {
   }
   delete(nodeValue) {
     if (this.root === null) {
-      return root;
+      return this.root;
     }
     let prev = null;
     let step = this.root;
+    // Recursive calls for ancestors of node to be deleted
     if (nodeValue < step.value) {
       prev = step;
       step = step.left;
@@ -80,6 +81,37 @@ class Tree {
       prev = step;
       step = step.right;
       this.delete(nodeValue);
+      return this.root;
+    }
+    // Reach here when root is node to delete
+    if (step.left === null) {
+      let temp = this.root.right;
+      delete this.root;
+      return temp;
+    } else if (step.right === null) {
+      let temp = this.root.left;
+      delete this.root;
+      return temp;
+    }
+    // If both children exist
+    else {
+      let succParent = this.root;
+      let succ = this.root.right;
+      // Find successor
+      while (succ.left !== null) {
+        succParent = succ;
+        succ = succ.left;
+      }
+      // Delete successor
+      if (succParent !== this.root) {
+        succParent.left = succ.right;
+      } else {
+        succParent.right = succ.right;
+      }
+      // Copy successor data to root
+      this.root.value = succ.value;
+      // Delete successor and return root
+      delete succ.value;
       return this.root;
     }
   }
@@ -111,3 +143,11 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 let array1 = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+let bst = new Tree(array1);
+prettyPrint(bst.root);
+bst.insert(6);
+prettyPrint(bst.root);
+bst.delete(8);
+prettyPrint(bst.root);
+bst.delete(4);
+prettyPrint(bst.root);
