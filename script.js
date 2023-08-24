@@ -39,85 +39,84 @@ class Tree {
     }
     return sortedArray;
   }
-  insert(newNodeValue) {
+  // insertI(newNodeValue) {
+  //   let node = new Node(newNodeValue);
+  //   // if BST is empty, return new root node
+  //   if (this.root === null) {
+  //     this.root = node;
+  //     return;
+  //   }
+  //   // Iterate down tree
+  //   let prev = null;
+  //   let step = this.root;
+  //   while (step != null) {
+  //     if (newNodeValue === step.value) {
+  //       console.log(newNodeValue + " exists in tree already!");
+  //       return null;
+  //     }
+  //     if (newNodeValue < step.value) {
+  //       prev = step;
+  //       step = step.left;
+  //     } else if (newNodeValue > step.value) {
+  //       prev = step;
+  //       step = step.right;
+  //     }
+  //   }
+  //   if (prev.value > newNodeValue) prev.left = node;
+  //   else prev.right = node;
+  // }
+  insert(root = this.root, newNodeValue) {
     let node = new Node(newNodeValue);
-    // if BST is empty, return new root node
-    if (this.root == null) {
-      this.root = node;
-      return;
+    if (root === null) {
+      root = node;
+      return root;
     }
     // Recur down tree
-    let prev = null;
-    let step = this.root;
-    while (step != null) {
-      if (newNodeValue === step.value) {
-        console.log(newNodeValue + " exists in tree already!");
-        return null;
-      }
-      if (newNodeValue < step.value) {
-        prev = step;
-        step = step.left;
-      } else if (newNodeValue > step.value) {
-        prev = step;
-        step = step.right;
-      }
+    if (root.value > newNodeValue) {
+      root.left = this.insert(root.left, newNodeValue);
     }
-    if (prev.value > newNodeValue) prev.left = node;
-    else prev.right = node;
   }
-  delete(nodeValue) {
-    if (this.root === null) {
-      return this.root;
+  delete(root, nodeValue) {
+    if (root === null) {
+      return root;
     }
-    // let prev = null;
-    // let step = this.root;
-    // Recursive calls for ancestors of node to be deleted
-    if (nodeValue < this.root.value) {
-      // prev = step;
-      // step = step.left;
-      this.root.left = this.delete(nodeValue);
-      return this.root;
-    } else if (nodeValue > this.root.value) {
-      // prev = step;
-      // step = step.right;
-      this.root.right = this.delete(nodeValue);
-      return this.root;
+    // Recursive call to get to node to be deleted
+    if (root.value > nodeValue) {
+      root.left = this.delete(root.left, nodeValue);
+      return root;
+    } else if (root.value < nodeValue) {
+      root.right = this.delete(root.right, nodeValue);
+      return root;
     }
-    // Reach here when root is node to delete
-    if (this.root.left === null) {
-      let temp = this.root.right;
-      delete this.root;
+    // If one or both children are empty
+    if (root.left === null) {
+      let temp = root.right;
+      delete root.value;
       return temp;
-    } else if (this.root.right === null) {
-      let temp = this.root.left;
-      delete this.root;
+    } else if (root.right === null) {
+      let temp = root.left;
+      delete root.value;
       return temp;
     }
     // If both children exist
     else {
-      let succParent = this.root;
-      // Find successor
-      let succ = this.root.right;
-      while (succ.left !== null) {
-        succParent = succ;
-        succ = succ.left;
+      let successorParent = root;
+      let successor = root.right;
+      while (successor.left !== null) {
+        successorParent = successor;
+        successor = successor.left;
       }
-      // Delete successor
-      if (succParent !== this.root) {
-        succParent.left = succ.right;
+      if (successorParent !== root) {
+        successorParent.left = successor.right;
       } else {
-        succParent.right = succ.right;
+        successorParent.right = successor.right;
       }
-      // Copy successor data to root
-      this.root.value = succ.value;
-      // Delete successor and return root
-      console.log(succ);
-      delete succ;
-      console.log(succ);
-      return this.root;
+      root.value = successor.value;
+      delete successor.value;
+      return root;
     }
   }
-  find() {}
+  find(nodeValue) {}
   levelOrder() {}
   inorder() {}
   preorder() {}
@@ -149,7 +148,8 @@ let bst = new Tree(array1);
 prettyPrint(bst.root);
 bst.insert(6);
 prettyPrint(bst.root);
-bst.delete(8);
+bst.delete(bst.root, 1);
+bst.delete(bst.root, 6345);
+bst.delete(bst.root, 8);
 prettyPrint(bst.root);
-bst.delete(1);
-prettyPrint(bst.root);
+bst.find(4);
