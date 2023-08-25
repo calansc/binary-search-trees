@@ -125,12 +125,12 @@ class Tree {
     if (nodeValue < root.value) {
       console.log("going left");
       temp = temp.left;
-      this.find(nodeValue, root.left);
+      temp = this.find(nodeValue, root.left);
       return temp;
     } else if (nodeValue > root.value) {
       console.log("going right");
       temp = temp.right;
-      this.find(nodeValue, root.right);
+      temp = this.find(nodeValue, root.right);
       return temp;
     }
   }
@@ -171,5 +171,5 @@ bst.delete(8);
 prettyPrint(bst.root);
 console.log(bst.find(9));
 console.log(bst.find(4));
-console.log(bst.find(23));
+console.log(bst.find(6));
 prettyPrint(bst.root);
