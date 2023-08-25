@@ -121,15 +121,13 @@ class Tree {
   }
   find(nodeValue, root = this.root) {
     if (nodeValue === root.value) return root;
-    let temp = root;
+    let temp;
     if (nodeValue < root.value) {
       console.log("going left");
-      temp = temp.left;
       temp = this.find(nodeValue, root.left);
       return temp;
     } else if (nodeValue > root.value) {
       console.log("going right");
-      temp = temp.right;
       temp = this.find(nodeValue, root.right);
       return temp;
     }
