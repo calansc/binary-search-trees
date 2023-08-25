@@ -72,9 +72,9 @@ class Tree {
       return root;
     }
     // Recur down tree
-    if (root.value > newNodeValue) {
+    if (newNodeValue < root.value) {
       root.left = this.insert(newNodeValue, root.left);
-    } else if (root.value < newNodeValue) {
+    } else if (newNodeValue > root.value) {
       root.right = this.insert(newNodeValue, root.right);
     }
     return root;
@@ -84,11 +84,11 @@ class Tree {
       return root;
     }
     // Recursive call to get to node to be deleted
-    if (root.value > nodeValue) {
-      root.left = this.delete(root.left, nodeValue);
+    if (nodeValue < root.value) {
+      root.left = this.delete(nodeValue, root.left);
       return root;
-    } else if (root.value < nodeValue) {
-      root.right = this.delete(root.right, nodeValue);
+    } else if (nodeValue > root.value) {
+      root.right = this.delete(nodeValue, root.right);
       return root;
     }
     // If one or both children are empty
@@ -119,7 +119,18 @@ class Tree {
       return root;
     }
   }
-  find(nodeValue) {}
+  find(nodeValue, root = this.root) {
+    if (nodeValue === root.value) return root;
+    if (nodeValue < root.value) {
+      console.log("going left");
+      root.left = this.find(nodeValue, root.left);
+      return root.left;
+    } else if (nodeValue > root.value) {
+      console.log("going right");
+      root.right = this.find(nodeValue, root.right);
+      return root.right;
+    }
+  }
   levelOrder() {}
   inorder() {}
   preorder() {}
@@ -148,11 +159,14 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 let array1 = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let bst = new Tree(array1);
-prettyPrint(bst.root);
+// prettyPrint(bst.root);
 bst.insert(6);
 prettyPrint(bst.root);
-// bst.delete(1);
-// bst.delete(6345);
-// bst.delete(8);
-// prettyPrint(bst.root);
-// bst.find(4);
+bst.delete(1);
+bst.delete(6345);
+bst.delete(8);
+prettyPrint(bst.root);
+console.log(bst.find(9));
+console.log(bst.find(4));
+console.log(bst.find(23));
+prettyPrint(bst.root);
