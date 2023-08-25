@@ -121,14 +121,17 @@ class Tree {
   }
   find(nodeValue, root = this.root) {
     if (nodeValue === root.value) return root;
+    let temp = root;
     if (nodeValue < root.value) {
       console.log("going left");
-      root.left = this.find(nodeValue, root.left);
-      return root.left;
+      temp = temp.left;
+      this.find(nodeValue, root.left);
+      return temp;
     } else if (nodeValue > root.value) {
       console.log("going right");
-      root.right = this.find(nodeValue, root.right);
-      return root.right;
+      temp = temp.right;
+      this.find(nodeValue, root.right);
+      return temp;
     }
   }
   levelOrder() {}
