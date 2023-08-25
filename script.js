@@ -123,16 +123,46 @@ class Tree {
     if (nodeValue === root.value) return root;
     let temp;
     if (nodeValue < root.value) {
-      console.log("going left");
+      // console.log("going left");
       temp = this.find(nodeValue, root.left);
       return temp;
     } else if (nodeValue > root.value) {
-      console.log("going right");
+      // console.log("going right");
       temp = this.find(nodeValue, root.right);
       return temp;
     }
   }
-  levelOrder() {}
+  levelOrder(func) {
+    // Accepts another function as parameter. Traverse tree in
+    // breadth-first level order and provide each node as the argument
+    // to the provided function. Try iteration/recursion. Return an
+    // array of values if no function is given.
+    // Use an array acting as a queue to keep track of child nodes
+    // yet to traverse and add new ones to the list.
+    let arrayOfValues = [];
+    let queue = [];
+    let root = this.root;
+    queue.push(root);
+
+    // base care for recursion
+    // if ((queue.length = 1)) {
+    //   return queue[0].value;
+    // }
+
+    while (queue.length > 0) {
+      // Add in if checks for null to continue
+      console.log(queue[0].left);
+      let temp = queue[0].left;
+      console.log(temp);
+      queue.push(temp);
+      // queue.push(queue[0].right);
+      arrayOfValues.push(queue[0].value);
+      queue.splice(0, 1);
+    }
+    console.log(queue);
+    console.log("AoV: " + arrayOfValues);
+    // return arrayOfValues = [];
+  }
   inorder() {}
   preorder() {}
   postorder() {}
@@ -163,11 +193,12 @@ let bst = new Tree(array1);
 // prettyPrint(bst.root);
 bst.insert(6);
 prettyPrint(bst.root);
-bst.delete(1);
-bst.delete(6345);
-bst.delete(8);
-prettyPrint(bst.root);
-console.log(bst.find(9));
-console.log(bst.find(4));
-console.log(bst.find(6));
-prettyPrint(bst.root);
+// bst.delete(1);
+// bst.delete(6345);
+// bst.delete(8);
+// prettyPrint(bst.root);
+// console.log(bst.find(9));
+// console.log(bst.find(4));
+// console.log(bst.find(6));
+// prettyPrint(bst.root);
+bst.levelOrder();
