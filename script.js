@@ -65,7 +65,7 @@ class Tree {
   //   if (prev.value > newNodeValue) prev.left = node;
   //   else prev.right = node;
   // }
-  insert(root = this.root, newNodeValue) {
+  insert(newNodeValue, root = this.root) {
     let node = new Node(newNodeValue);
     if (root === null) {
       root = node;
@@ -73,10 +73,13 @@ class Tree {
     }
     // Recur down tree
     if (root.value > newNodeValue) {
-      root.left = this.insert(root.left, newNodeValue);
+      root.left = this.insert(newNodeValue, root.left);
+    } else if (root.value < newNodeValue) {
+      root.right = this.insert(newNodeValue, root.right);
     }
+    return root;
   }
-  delete(root, nodeValue) {
+  delete(nodeValue, root = this.root) {
     if (root === null) {
       return root;
     }
@@ -148,8 +151,8 @@ let bst = new Tree(array1);
 prettyPrint(bst.root);
 bst.insert(6);
 prettyPrint(bst.root);
-bst.delete(bst.root, 1);
-bst.delete(bst.root, 6345);
-bst.delete(bst.root, 8);
-prettyPrint(bst.root);
-bst.find(4);
+// bst.delete(1);
+// bst.delete(6345);
+// bst.delete(8);
+// prettyPrint(bst.root);
+// bst.find(4);
