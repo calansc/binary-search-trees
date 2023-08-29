@@ -167,18 +167,14 @@ class Tree {
   // inorder: left, root, right
   inorder() {}
   // preorder: root, left, right
-  preorder(callBackFunc, root = this.root) {
-    let arrayOfValues = [];
-    // let queue = [];
-    // let root = this.root;
-    // queue.push(root);
+  preorder(callBackFunc, root = this.root, arrayOfValues = []) {
     if (root == null) return;
     arrayOfValues.push(root.value);
-    console.log(arrayOfValues);
+    // console.log(arrayOfValues);
     if (callBackFunc) callBackFunc(root.value);
-    this.preorder(callBackFunc, root.left);
-    this.preorder(callBackFunc, root.right);
-    // if (!callBackFunc) return arrayOfValues;
+    if (root.left) this.preorder(callBackFunc, root.left, arrayOfValues);
+    if (root.right) this.preorder(callBackFunc, root.right, arrayOfValues);
+    if (!callBackFunc) return arrayOfValues;
   }
   // postorder: left, right, root
   postorder() {}
