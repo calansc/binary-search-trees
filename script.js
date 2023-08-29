@@ -162,8 +162,25 @@ class Tree {
     // console.log("AoV: " + arrayOfValues);
     if (!callBackFunc) return arrayOfValues;
   }
+
+  // Depth First Traversal
+  // inorder: left, root, right
   inorder() {}
-  preorder() {}
+  // preorder: root, left, right
+  preorder(callBackFunc, root = this.root) {
+    let arrayOfValues = [];
+    // let queue = [];
+    // let root = this.root;
+    // queue.push(root);
+    if (root == null) return;
+    arrayOfValues.push(root.value);
+    console.log(arrayOfValues);
+    if (callBackFunc) callBackFunc(root.value);
+    this.preorder(callBackFunc, root.left);
+    this.preorder(callBackFunc, root.right);
+    // if (!callBackFunc) return arrayOfValues;
+  }
+  // postorder: left, right, root
   postorder() {}
   height() {}
   depth() {}
@@ -204,4 +221,7 @@ prettyPrint(bst.root);
 // console.log(bst.find(4));
 // console.log(bst.find(6));
 // prettyPrint(bst.root);
-console.log(bst.levelOrder(double));
+console.log("Breadth: " + bst.levelOrder());
+console.log("Inorder: " + bst.inorder());
+console.log("Preorder: " + bst.preorder());
+console.log("Postorder: " + bst.postorder());
