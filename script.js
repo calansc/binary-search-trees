@@ -39,7 +39,7 @@ class Tree {
     }
     return sortedArray;
   }
-  // insertI(newNodeValue) {
+  // insertIterative(newNodeValue) {
   //   let node = new Node(newNodeValue);
   //   // if BST is empty, return new root node
   //   if (this.root === null) {
@@ -65,6 +65,7 @@ class Tree {
   //   if (prev.value > newNodeValue) prev.left = node;
   //   else prev.right = node;
   // }
+  // Recursive insert
   insert(newNodeValue, root = this.root) {
     let node = new Node(newNodeValue);
     if (root === null) {
@@ -192,9 +193,24 @@ class Tree {
     if (!callBackFunc) return arrayOfValues;
   }
   // edges in longest path from given node to leaf node
-  height(node) {}
+  height(node) {
+    let counter;
+  }
   // edges in longest path from given node to root node
-  depth(node) {}
+  depth(node, root = this.root, counter = 0) {
+    if (root == null) return;
+    if (root.value > node) {
+      // console.log(counter);
+      counter++;
+      console.log(counter);
+      this.depth(node, root.left, counter);
+    } else if (root.value < node) {
+      counter++;
+      this.depth(node, root.right, counter);
+    }
+    //  else return counter;
+    return counter;
+  }
   isBalanced() {}
   rebalance() {}
 }
@@ -236,3 +252,8 @@ console.log("Breadth: " + bst.levelOrder());
 console.log("Inorder: " + bst.inorder());
 console.log("Preorder: " + bst.preorder());
 console.log("Postorder: " + bst.postorder());
+console.log("4: " + bst.depth(4));
+console.log("3: " + bst.depth(3));
+console.log("8: " + bst.depth(8));
+console.log("9: " + bst.depth(9));
+console.log("6345: " + bst.depth(6345));
