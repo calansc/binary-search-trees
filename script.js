@@ -132,13 +132,9 @@ class Tree {
       return temp;
     }
   }
-  levelOrder(func) {
-    // Accepts another function as parameter. Traverse tree in
-    // breadth-first level order and provide each node as the argument
-    // to the provided function. Try iteration/recursion. Return an
-    // array of values if no function is given.
-    // Use an array acting as a queue to keep track of child nodes
-    // yet to traverse and add new ones to the list.
+  // Breadth First Traversal
+  levelOrder(callBackFunc) {
+    // Try iteration/recursion.
     let arrayOfValues = [];
     let queue = [];
     let root = this.root;
@@ -150,8 +146,6 @@ class Tree {
     // }
 
     while (queue.length > 0) {
-      // Add in if checks for null to continue
-      // console.log(queue[0].left);
       if (queue[0].left !== null) {
         let tempLeft = queue[0].left;
         queue.push(tempLeft);
@@ -161,12 +155,12 @@ class Tree {
         queue.push(tempRight);
       }
       arrayOfValues.push(queue[0].value);
-      // console.log("Aov:" + arrayOfValues);
+      if (callBackFunc) callBackFunc(queue[0].value);
       queue.splice(0, 1);
     }
-    console.log(queue);
-    console.log("AoV: " + arrayOfValues);
-    // return arrayOfValues = [];
+    // console.log(queue);
+    // console.log("AoV: " + arrayOfValues);
+    if (!callBackFunc) return arrayOfValues;
   }
   inorder() {}
   preorder() {}
@@ -193,6 +187,10 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
+function double(num) {
+  return console.log(num * 2);
+}
+
 let array1 = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let bst = new Tree(array1);
 // prettyPrint(bst.root);
@@ -206,4 +204,4 @@ prettyPrint(bst.root);
 // console.log(bst.find(4));
 // console.log(bst.find(6));
 // prettyPrint(bst.root);
-bst.levelOrder();
+console.log(bst.levelOrder(double));
