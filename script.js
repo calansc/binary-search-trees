@@ -151,12 +151,17 @@ class Tree {
 
     while (queue.length > 0) {
       // Add in if checks for null to continue
-      console.log(queue[0].left);
-      let temp = queue[0].left;
-      console.log(temp);
-      queue.push(temp);
-      // queue.push(queue[0].right);
+      // console.log(queue[0].left);
+      if (queue[0].left !== null) {
+        let tempLeft = queue[0].left;
+        queue.push(tempLeft);
+      }
+      if (queue[0].right !== null) {
+        let tempRight = queue[0].right;
+        queue.push(tempRight);
+      }
       arrayOfValues.push(queue[0].value);
+      // console.log("Aov:" + arrayOfValues);
       queue.splice(0, 1);
     }
     console.log(queue);
