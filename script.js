@@ -165,21 +165,36 @@ class Tree {
 
   // Depth First Traversal
   // inorder: left, root, right
-  inorder() {}
+  inorder(callBackFunc, root = this.root, arrayOfValues = []) {
+    if (root == null) return;
+    if (root.left) this.inorder(callBackFunc, root.left, arrayOfValues);
+    arrayOfValues.push(root.value);
+    if (callBackFunc) callBackFunc(root.value);
+    if (root.right) this.inorder(callBackFunc, root.right, arrayOfValues);
+    if (!callBackFunc) return arrayOfValues;
+  }
   // preorder: root, left, right
   preorder(callBackFunc, root = this.root, arrayOfValues = []) {
     if (root == null) return;
     arrayOfValues.push(root.value);
-    // console.log(arrayOfValues);
     if (callBackFunc) callBackFunc(root.value);
     if (root.left) this.preorder(callBackFunc, root.left, arrayOfValues);
     if (root.right) this.preorder(callBackFunc, root.right, arrayOfValues);
     if (!callBackFunc) return arrayOfValues;
   }
   // postorder: left, right, root
-  postorder() {}
-  height() {}
-  depth() {}
+  postorder(callBackFunc, root = this.root, arrayOfValues = []) {
+    if (root == null) return;
+    if (root.left) this.postorder(callBackFunc, root.left, arrayOfValues);
+    if (root.right) this.postorder(callBackFunc, root.right, arrayOfValues);
+    arrayOfValues.push(root.value);
+    if (callBackFunc) callBackFunc(root.value);
+    if (!callBackFunc) return arrayOfValues;
+  }
+  // edges in longest path from given node to leaf node
+  height(node) {}
+  // edges in longest path from given node to root node
+  depth(node) {}
   isBalanced() {}
   rebalance() {}
 }
