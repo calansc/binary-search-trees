@@ -198,17 +198,14 @@ class Tree {
   }
   // edges in longest path from given node to root node
   depth(node, root = this.root, counter = 0) {
-    if (root == null) return;
+    if (root == null) return 0;
     if (root.value > node) {
-      // console.log(counter);
-      counter++;
-      console.log(counter);
-      this.depth(node, root.left, counter);
+      counter = this.depth(node, root.left, counter);
+      return counter + 1;
     } else if (root.value < node) {
-      counter++;
-      this.depth(node, root.right, counter);
+      counter = this.depth(node, root.right, counter);
+      return counter + 1;
     }
-    //  else return counter;
     return counter;
   }
   isBalanced() {}
@@ -248,10 +245,10 @@ prettyPrint(bst.root);
 // console.log(bst.find(4));
 // console.log(bst.find(6));
 // prettyPrint(bst.root);
-console.log("Breadth: " + bst.levelOrder());
-console.log("Inorder: " + bst.inorder());
-console.log("Preorder: " + bst.preorder());
-console.log("Postorder: " + bst.postorder());
+// console.log("Breadth: " + bst.levelOrder());
+// console.log("Inorder: " + bst.inorder());
+// console.log("Preorder: " + bst.preorder());
+// console.log("Postorder: " + bst.postorder());
 console.log("4: " + bst.depth(4));
 console.log("3: " + bst.depth(3));
 console.log("8: " + bst.depth(8));
