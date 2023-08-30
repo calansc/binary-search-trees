@@ -193,12 +193,16 @@ class Tree {
     if (!callBackFunc) return arrayOfValues;
   }
   // edges in longest path from given node to leaf node
-  height(node) {
-    let counter;
+  // finds height of tree. Height from give node?
+  height(node = this.root) {
+    if (node === null) return -1;
+    let leftHeight = this.height(node.left);
+    let rightHeight = this.height(node.right);
+    return Math.max(leftHeight, rightHeight) + 1;
   }
   // edges in longest path from given node to root node
   depth(node, root = this.root, counter = 0) {
-    if (root == null) return 0;
+    if (root == null) return counter - 1;
     if (root.value > node) {
       counter = this.depth(node, root.left, counter);
       return counter + 1;
@@ -249,8 +253,9 @@ prettyPrint(bst.root);
 // console.log("Inorder: " + bst.inorder());
 // console.log("Preorder: " + bst.preorder());
 // console.log("Postorder: " + bst.postorder());
-console.log("4: " + bst.depth(4));
-console.log("3: " + bst.depth(3));
-console.log("8: " + bst.depth(8));
-console.log("9: " + bst.depth(9));
-console.log("6345: " + bst.depth(6345));
+// console.log("4: " + bst.depth(4));
+// console.log("3: " + bst.depth(3));
+// console.log("8: " + bst.depth(8));
+// console.log("9: " + bst.depth(9));
+// console.log("6345: " + bst.depth(6345));
+// console.log(bst.height());
