@@ -215,23 +215,22 @@ class Tree {
 
   // A balanced tree has a height difference between left subtree and
   // right subtree of less than one
-  isBalanced(node = this.root, leftHeight = 0, rightHeight = 0) {
-    if (node === null) return true;
+  isBalanced(root = this.root) {
+    if (root === null) return true;
+    let leftHeight = this.height(root.left);
+    let rightHeight = this.height(root.right);
     console.log(leftHeight, rightHeight);
-    leftHeight = this.isBalanced(node.left, leftHeight + 1, rightHeight);
-    rightHeight = this.isBalanced(node.right, leftHeight, rightHeight + 1);
-    return leftHeight, rightHeight;
   }
-  isBalancedChecker(leftHeight, rightHeight) {
-    this.isBalanced();
-    if (
-      leftHeight - rightHeight === 0 ||
-      leftHeight - rightHeight === -1 ||
-      leftHeight - rightHeight === 1
-    ) {
-      return "tree is balanced";
-    } else return "tree is unbalanced";
-  }
+  // isBalancedChecker(leftHeight, rightHeight) {
+  //   this.isBalanced();
+  //   if (
+  //     leftHeight - rightHeight === 0 ||
+  //     leftHeight - rightHeight === -1 ||
+  //     leftHeight - rightHeight === 1
+  //   ) {
+  //     return "tree is balanced";
+  //   } else return "tree is unbalanced";
+  // }
 
   // Rebalance an unbalanced tree. Use traversal method to provide new
   // array to buildTree
