@@ -212,8 +212,34 @@ class Tree {
     }
     return counter;
   }
-  isBalanced() {}
-  rebalance() {}
+
+  // A balanced tree has a height difference between left subtree and
+  // right subtree of less than one
+  isBalanced(node = this.root, leftHeight = 0, rightHeight = 0) {
+    if (node === null) return true;
+    console.log(leftHeight, rightHeight);
+    leftHeight = this.isBalanced(node.left, leftHeight + 1, rightHeight);
+    rightHeight = this.isBalanced(node.right, leftHeight, rightHeight + 1);
+    return leftHeight, rightHeight;
+  }
+  isBalancedChecker(leftHeight, rightHeight) {
+    this.isBalanced();
+    if (
+      leftHeight - rightHeight === 0 ||
+      leftHeight - rightHeight === -1 ||
+      leftHeight - rightHeight === 1
+    ) {
+      return "tree is balanced";
+    } else return "tree is unbalanced";
+  }
+
+  // Rebalance an unbalanced tree. Use traversal method to provide new
+  // array to buildTree
+  rebalance() {
+    let sortedArray = this.inorder();
+    this.root = this.buildTree(sortedArray);
+    return this.root;
+  }
 }
 
 let root = null;
@@ -239,11 +265,18 @@ function double(num) {
 let array1 = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let bst = new Tree(array1);
 // prettyPrint(bst.root);
-bst.insert(6);
-prettyPrint(bst.root);
+console.log(bst.isBalanced());
+// bst.insert(43);
+// bst.insert(74);
+// bst.insert(77);
+// console.log(bst.isBalanced());
+// bst.rebalance();
+// console.log(bst.isBalanced());
+// prettyPrint(bst.root);
 // bst.delete(1);
-// bst.delete(6345);
-// bst.delete(8);
+// bst.delete(4);
+// bst.delete(3);
+// prettyPrint(bst.root);
 // prettyPrint(bst.root);
 // console.log(bst.find(9));
 // console.log(bst.find(4));
@@ -259,3 +292,6 @@ prettyPrint(bst.root);
 // console.log("9: " + bst.depth(9));
 // console.log("6345: " + bst.depth(6345));
 // console.log(bst.height());
+// bst.rebalance();
+// console.log(bst.rebalance());
+// prettyPrint(bst.root);
