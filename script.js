@@ -274,6 +274,13 @@ function treeDriver() {
     bst.insert(Math.round(1000 * Math.random()));
   }
   console.log(bst.isBalanced());
+  bst.rebalance();
+  console.log(bst.isBalanced());
+  console.log("Breadth/Level: " + bst.levelOrder());
+  console.log("Inorder: " + bst.inorder());
+  console.log("Preorder: " + bst.preorder());
+  console.log("Postorder: " + bst.postorder());
+  prettyPrint(bst.root);
 }
 treeDriver();
 // let array1 = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
