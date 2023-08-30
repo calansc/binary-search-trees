@@ -220,17 +220,14 @@ class Tree {
     let leftHeight = this.height(root.left);
     let rightHeight = this.height(root.right);
     console.log(leftHeight, rightHeight);
+    if (
+      leftHeight - rightHeight === 0 ||
+      leftHeight - rightHeight === -1 ||
+      leftHeight - rightHeight === 1
+    ) {
+      return true;
+    } else return false;
   }
-  // isBalancedChecker(leftHeight, rightHeight) {
-  //   this.isBalanced();
-  //   if (
-  //     leftHeight - rightHeight === 0 ||
-  //     leftHeight - rightHeight === -1 ||
-  //     leftHeight - rightHeight === 1
-  //   ) {
-  //     return "tree is balanced";
-  //   } else return "tree is unbalanced";
-  // }
 
   // Rebalance an unbalanced tree. Use traversal method to provide new
   // array to buildTree
