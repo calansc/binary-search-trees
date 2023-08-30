@@ -219,7 +219,7 @@ class Tree {
     if (root === null) return true;
     let leftHeight = this.height(root.left);
     let rightHeight = this.height(root.right);
-    console.log(leftHeight, rightHeight);
+    // console.log(leftHeight, rightHeight);
     if (
       leftHeight - rightHeight === 0 ||
       leftHeight - rightHeight === -1 ||
@@ -258,10 +258,28 @@ function double(num) {
   return console.log(num * 2);
 }
 
-let array1 = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-let bst = new Tree(array1);
+function treeDriver() {
+  let count = Math.round(10 * Math.random() + 10);
+  // console.log(count);
+  let array = [];
+  for (let i = 0; i < count; i++) {
+    array.push(Math.round(100 * Math.random()));
+  }
+  // console.log(array);
+  let bst = new Tree(array);
+  // prettyPrint(bst.root);
+  console.log(bst.isBalanced());
+  let count2 = Math.round(5 * Math.random() + 5);
+  for (let i = 0; i < count2; i++) {
+    bst.insert(Math.round(1000 * Math.random()));
+  }
+  console.log(bst.isBalanced());
+}
+treeDriver();
+// let array1 = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+// let bst = new Tree(array1);
 // prettyPrint(bst.root);
-console.log(bst.isBalanced());
+// console.log(bst.isBalanced());
 // bst.insert(43);
 // bst.insert(74);
 // bst.insert(77);
